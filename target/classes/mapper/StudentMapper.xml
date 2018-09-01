@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.StudentMapper">
+
+	<resultMap type="Student" id="StudentBean">
+            <id column="student_id" property="studentId" />
+            <result column="password" property="password" />
+            <result column="name" property="name"/>
+            <collection property = "books" ofType="Book">
+            	<id column="book_id" property="bookId" />
+            	<result column="bname" property="name" />
+            	<result column="intro" property="intro"/>
+            </collection>
+    </resultMap>
+    
+	<select id="verifyStudent" resultType="Student">
+		SELECT student_id as studentId, password FROM student WHERE student_id=#{studentId} AND password=#{password}		
+	</select>
+	
+	<insert id="add" parameterType="Student" >
+        insert into student (student_id, password ) values (#{studentId},#{password})   
+    </insert>
+    
+    <delete id="delete">
+       	delete from student where student_id = #{studentId} and name = #{name}
+    </delete>
+    
+    <select id="listStudent" resultMap="StudentBean">
+		SELECT student_id, password, name, a.book_id as book_id, b.name as bname, intro FROM student left join appointment a natural join book b
+	</select>
+	
+	<select id="get" parameterType = "Student" resultMap="StudentBean">
+		SELECT s.student_id as student_id, password, name, a.book_id as book_id, b.name as bname, intro FROM student s left join appointment a natural join book b 
+		WHERE student_id = #{studentId} or name=#{name}
+	</select>
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+    <mapper namespace="mapper.BookMapper">
+        <!-- <resultMap type="Book" id="BookBean">
+            <id column="book_id" property="bookId" />
+            <result column="name" property="name" />
+            <result column="intro" property="intro"/>
+            <result column="number" property="number"/>
+        </resultMap> -->
+        
+        <insert id="add" parameterType="Book" >
+            insert into book ( name,intro,number ) values (#{name},#{intro},#{number})   
+        </insert>
+         
+        <delete id="delete" parameterType="_long" >
+            delete from book where book_id= #{id}  
+        </delete>
+         
+        <select id="getById" parameterType="_long" resultType="Book" >
+            select book_id as bookId,name,number,intro from book where book_id= #{id} 
+        </select>
+ 
+        <update id="update" parameterType="Book" >
+            update Book set name=#{name}, intro = #{intro}, number = #{number} where book_id=#{bookId}   
+        </update>
+        
+        <select id="listAll" resultType="Book">
+            select * from  book ORDER BY book_id
+            <if test="start!=null and count!=null">
+                    limit #{start},#{count}
+            </if>
+        </select>
+        
+        <select id="getTotal" parameterType="_long" resultType="_int">
+            select count(*) from book
+        </select>  
+        
+        <select id="getStock" parameterType="_long" resultType="_int">
+            select number from book where book_id=#{id}
+        </select>
+        
+        <update id="reduceNumber" parameterType="_long">
+			UPDATE book SET number = number - 1 WHERE book_id = #{id} AND number > 0
+		</update>       
+    </mapper>
