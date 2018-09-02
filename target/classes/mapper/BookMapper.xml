@@ -42,7 +42,7 @@
             select number from book where book_id=#{id}
         </select>
         
-        <update id="reduceNumber" parameterType="_long">
+        <update id="reduceNumber" parameterType="_long" >
 			UPDATE book SET number = number - 1 WHERE book_id = #{id} AND number > 0
 		</update>       
     </mapper>

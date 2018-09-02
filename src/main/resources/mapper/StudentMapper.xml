@@ -20,19 +20,20 @@
 	</select>
 	
 	<insert id="add" parameterType="Student" >
-        insert into student (student_id, password ) values (#{studentId},#{password})   
+        insert into student (student_id, password,name ) values (#{studentId},#{password},#{name})   
     </insert>
     
     <delete id="delete">
-       	delete from student where student_id = #{studentId} and name = #{name}
+       	delete from student where student_id = #{studentId}
     </delete>
     
     <select id="listStudent" resultMap="StudentBean">
-		SELECT student_id, password, name, a.book_id as book_id, b.name as bname, intro FROM student left join appointment a natural join book b
+		SELECT s.student_id, password, s.name, book_id, b.name as bname, intro  FROM student s left join (appointment a natural join book b) on s.student_id = a.student_id 
 	</select>
 	
-	<select id="get" parameterType = "Student" resultMap="StudentBean">
-		SELECT s.student_id as student_id, password, name, a.book_id as book_id, b.name as bname, intro FROM student s left join appointment a natural join book b 
-		WHERE student_id = #{studentId} or name=#{name}
+	<select id="get"  resultMap="StudentBean">
+		SELECT s.student_id, password, s.name, book_id, b.name as bname, intro  FROM student s left join (appointment a natural join book b) on s.student_id = a.student_id
+		where s.student_id = #{param1} or s.name = #{param1} 	
 	</select>
+
 </mapper>

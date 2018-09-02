@@ -11,7 +11,7 @@ public class Student {
 	public Student(){
 		
 	}
-	public Student(Long studentId,Long password, String name){
+	public Student(long studentId,long password, String name){
 		this.studentId=studentId;
 		this.password=password;
 		this.name = name;

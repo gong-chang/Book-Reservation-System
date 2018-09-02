@@ -51,8 +51,7 @@ public class TestBookMapper {
 	}
 	
 	@Test
-    public void TestlistAll_page() {//pass
-		Page page = new Page(0,5,0);
+    public void TestlistAll_page(Page page) {//pass
 		page.caculateLast(9);
 		System.out.println("last isssssssssssssssssssssssss "+page.getLast());
 		List<Book> books = bookMapper.listAll(page);
@@ -65,7 +64,7 @@ public class TestBookMapper {
 		System.out.println("1001 left " + bookMapper.getStock(1001));
 	}
 	@Test
-    public void reduceNumber() {//pass
-		bookMapper.reduceNumber(1001);
+    public int reduceNumber() {//pass
+		return bookMapper.reduceNumber(1001);
 	}
 }

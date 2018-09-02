@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import pojo.Student;
 
 public interface StudentMapper {
-	Student verifyStudent(@Param("studentId") long studentId, @Param("password)")  long password);
+	Student verifyStudent(@Param("studentId") long studentId, @Param("password")  long password);
 	
 	void add(Student student);
 	
@@ -15,5 +15,7 @@ public interface StudentMapper {
 	
 	List<Student> listStudent();
 	
-	Student get(Student student);//依据学号或者名字查询
+	Student get(@Param("studentId") long studentId);//依据学号或者名字查询
+	
+	Student get(@Param("name") String name);//依据学号或者名字查询
 }
