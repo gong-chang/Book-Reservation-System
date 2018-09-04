@@ -19,8 +19,8 @@
             delete from book where book_id= #{id}  
         </delete>
          
-        <select id="getById" parameterType="_long" resultType="Book" >
-            select book_id as bookId,name,number,intro from book where book_id= #{id} 
+        <select id="get"  resultType="Book" >
+            select book_id as bookId,name,number,intro from book where book_id = #{param1} or name LIKE CONCAT('%',#{condition,jdbcType=VARCHAR},'%')
         </select>
  
         <update id="update" parameterType="Book" >

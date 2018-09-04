@@ -29,7 +29,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Book Reservation Service</a>
+          <a class="navbar-brand" href="#">Book Appointment System</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
 
@@ -155,7 +155,7 @@
  	<div class="container">
 		<div class="panel panel-default">
 		        <div id = bookslist class="panel-heading text-center">
-		            <h2>Book List</h2>
+		            <h2>Details</h2>
 		        </div>
 		        <form name="firstForm" action="<%= request.getContextPath()%>/search?start=0#bookslist" method="post">
 		        	<div class="panel-heading ">
@@ -174,76 +174,34 @@
 		        	    </table> 
 		         	</div>
 		        </form>
-		        
-		<div class="panel-body">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>Book ID</th>
-                    <th>Book Title</th>
-                    <th>Number of Collections</th> 
-                    <th>Detail</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${booklist}" var="sk">
-                    <tr>
-                        <td>${sk.bookId}</td>
-                        <td>${sk.name}</td>
-                        <td>${sk.number}</td>
-                        <td><a class="btn btn-info" href="<%= request.getContextPath()%>/detail?bookId=${sk.bookId}#bookslist" target="_blank">Detail</a></td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-			</table>
-		</div>
-		</div>
+		      <div class="row featurette">
+		        <div class="col-md-7 col-md-push-5">
+		          <h2 class="featurette-heading">${book.name}</h2>
+		          <p class="lead">Introduction: ${book.intro}</p>
+		          <p><em>Author : Unknown</em></p>
+		          <p><em>Publisher : Unknown</em></p>
+		          <p><em>ISBN : Unknown</em></p>
+		          <a class="btn btn-success" href="reserveBook?bookId=${book.bookId}" role="button">Make Reservation</a>
+		         <%--  <form action="reserveBook?bookId=${book.bookId}" method = "post">
+		            <button type="submit" class="btn btn-success">Make Reservation</button>
+		          </form> --%>
+		        </div>
+		        <div class="col-md-5 col-md-pull-7">
+		          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+		        </div>
+		      </div>		
 		
-		<nav aria-label="Page navigation" style="text-align:center">
-		  <ul class="pagination">
-			<c:if test="${page.start-page.count>=0}">
-				<li>
-			      <a href="?start=${page.start-page.count}#bookslist" aria-label="Previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-		    </c:if>
-		    <c:if test="${page.start==0}">
-		    	<li class="disabled">
-			      <a href="javascript:void(0)" aria-label="Previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-		    </c:if>		      
-		    <li><a href="<%= request.getContextPath()%>/listBooks?start=0#bookslist">1</a></li>
-		    <li><a href="<%= request.getContextPath()%>/listBooks?start=${page.count}#bookslist">2</a></li>
-		    <li><a href="<%= request.getContextPath()%>/listBooks?start=2*${page.count}#bookslist">3</a></li>
-		    <li><a href="<%= request.getContextPath()%>/listBooks?start=3*${page.count}#bookslist">4</a></li>
-		    <li><a href="<%= request.getContextPath()%>/listBooks?start=4*${page.count}#bookslist">5</a></li>
-		    <c:if test="${page.start<page.last}">
-				<li>
-			      <a href="?start=${page.start+page.count}#bookslist" aria-label="Next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-		    </c:if>
-		    <c:if test="${page.start==page.last}">
-		    	<li class="disabled">
-			      <a href="javascript:void(0)" aria-label="Next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-		    </c:if>	
-		  </ul>
-		</nav>
-
-	   <hr class="featurette-divider"> 
-      <!-- FOOTER -->
-      <footer>
-        <p class="pull-right"><a href="#top">Back to top</a></p>
-        <p>&copy; Chang Gong Personal Project. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-      </footer>
-	</div> 
+			   <hr class="featurette-divider"> 
+		      <!-- FOOTER -->
+		      <footer>
+		        <p class="pull-right"><a href="#top">Back to top</a></p>
+		        <p>&copy; Chang Gong Personal Project. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+		      </footer>
+			</div>		        
+		
+		</div> 	
+ 	
+ 
 
       <!-- /END LIST -->
 

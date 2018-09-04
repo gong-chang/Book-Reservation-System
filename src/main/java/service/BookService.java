@@ -9,7 +9,9 @@ import util.Page;
 
 public interface BookService {
 	
-	Book getById(long bookId);  
+	List<Book> get(long bookId); 
+	
+	List<Book> get(String name); 
 	
 	List<Book> getList(Page page);
 	

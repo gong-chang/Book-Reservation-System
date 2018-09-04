@@ -33,9 +33,11 @@ public class TestBookMapper {
 		bookMapper.update(b);
 	}
 	@Test
-    public void TestgetById() {//pass
-		Book b =bookMapper.getById(1000);
-		System.out.println(b);
+    public void Testget() {//pass
+		List<Book> books =bookMapper.get(1000);
+		for (Book b : books) {
+			System.out.println(b);
+		}
 	}
 	@Test
     public void TestgetTotal() {//pass

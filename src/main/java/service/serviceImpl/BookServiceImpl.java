@@ -16,9 +16,14 @@ public class BookServiceImpl implements BookService {
 	@Autowired
 	private BookMapper bookmapper;
 
-	public Book getById(long bookId) {
+	public List<Book> get(long bookId) {
 		// TODO Auto-generated method stub
-		return bookmapper.getById(bookId);
+		return bookmapper.get(bookId);
+	}
+	
+	public List<Book> get(String name) {
+		// TODO Auto-generated method stub
+		return bookmapper.get(name);
 	}
 
 	public List<Book> getList(Page page) {
