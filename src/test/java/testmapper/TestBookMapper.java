@@ -13,7 +13,7 @@ import pojo.Book;
 import util.Page;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:applicationContext.xml")
+@ContextConfiguration("classpath:resource/spring-service.xml")
 public class TestBookMapper {
 	@Autowired
 	private BookMapper bookMapper;

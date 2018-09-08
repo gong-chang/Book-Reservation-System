@@ -12,6 +12,8 @@ public interface AppointmentMapper {
 	
 	List<Appointment> getAppointmentByStudent(long studentId);
 	
+	List<Appointment> getAppointments();
+	
 	void delete(@Param("bookId") long bookId, @Param("studentId") long studentId);
 	
 	List<Book> getReservedBooks();

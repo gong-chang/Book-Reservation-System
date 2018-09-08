@@ -34,6 +34,10 @@ public class AppointmentServiceImpl implements AppointmentService {
 		return appointmapper.getAppointmentByStudent(studentId);
 	}
 
+	public List<Appointment> getAppointments() {
+		return appointmapper.getAppointments();
+	}
+	
 	public void deleteAppointment(long bookId, long studentId) {
 		// TODO Auto-generated method stub
 		appointmapper.delete(bookId, studentId);

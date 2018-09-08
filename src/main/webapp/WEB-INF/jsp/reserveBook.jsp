@@ -54,7 +54,7 @@
             		<!--用来展示预约控件-->
             		<span class="glyphicon" id="appoint-box"></span> <!--在js里面调用这个id还可以动态显示一些其他东西，例如动态时间等（需要插件）-->
             		 
-            		<span class="glyphicon"><a class="btn btn-primary btn-lg" href="/books/appoint?studentId=${cookie['studentId'].value}" target="_blank">Check My Reservations</a></span>
+            		<span class="glyphicon"><a class="btn btn-primary btn-lg" href="/BookAppointment/appoint?studentId=${cookie['studentId'].value}" target="_blank">Check My Reservations</a></span>
             	</h2>           <!--如何获取该页面弹出层输入的学生ID， 传给上面的url-->
         	</div>
     </div>	 	
@@ -74,7 +74,7 @@
                 <div class="row">
                     <div class="col-xs-8 col-xs-offset-2">
                         <input type="text" name="studentId" id="studentIdKey"
-                               placeholder="Student Number" class="form-control">
+                               placeholder="Student/Admin ID" class="form-control">
                     </div>
                     <div class="col-xs-8 col-xs-offset-2">
                         <input type="password" name="password" id="passwordKey"
@@ -83,13 +83,31 @@
                 </div>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer" >
                		<!--  验证信息 -->
                 <span id="studentMessage" class="glyphicon"> </span>
-                <button type="button" id="studentBtn" class="btn btn-success">
-                    <span class="glyphicon glyphicon-student"></span>
-                    Submit
+                <button type="button" id="adminloginBtn" class="btn btn-info">
+                <span class="glyphicon glyphicon-student">Admin</span>
                 </button>
+                <button type="button" id="listloginBtn" class="btn btn-success">
+                <span class="glyphicon glyphicon-student">Student</span>
+                </button>
+            </div>
+            <div style="text-align:center">
+            <strong>Sample Users</strong>
+            <table style="width: 100%;" id="sampleLoginTable">
+                <tr>
+                    <td><a
+                            onclick="fillLoginFields('3211200801','346543')"
+                            href="javascript:void(0)">Student1</a></td>
+                    <td><a
+                            onclick="fillLoginFields('3211200802','754323')"
+                            href="javascript:void(0)">Student2</a></td>
+                    <td><a
+                            onclick="fillLoginFields('10000','10000')"
+                            href="javascript:void(0)">Admin1</a></td>
+                </tr>
+            </table>
             </div>
         </div>
     </div> 
@@ -109,10 +127,15 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		console.log(${book.bookId});
         bookappointment.detail.init(${book.bookId});
         
     }) 
     
+</script>
+  <script>
+    function fillLoginFields(u, p) {
+        document.getElementById("studentIdKey").value = u;
+        document.getElementById("passwordKey").value = p;
+    }
 </script>
 </html> 

@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +22,11 @@ import DTO.Result;
 import enums.AppointStateEnum;
 import exception.NoStockException;
 import exception.RepeatAppointException;
+import pojo.Admin;
 import pojo.Appointment;
 import pojo.Book;
 import pojo.Student;
+import service.AdminService;
 import service.AppointmentService;
 import service.BookService;
 import service.StudentService;
@@ -42,6 +42,8 @@ public class BookController {
 	private StudentService studentService;
 	@Autowired
 	private AppointmentService appointmentService;
+	@Autowired
+	private AdminService adminService;
 	
 	//获取图书列表
 	@RequestMapping(value="/listBooks")
@@ -89,16 +91,20 @@ public class BookController {
 	@RequestMapping(value="/verify", method = RequestMethod.POST, produces = {
 		"application/json; charset=utf-8" })
 	@ResponseBody
-	private Map validate(long studentId,long password){   //(HttpServletRequest req,HttpServletResponse resp){
+	private Map validate(long studentId,long password,int flag){   //(HttpServletRequest req,HttpServletResponse resp){
 		Map resultMap=new HashMap(); 
-		Student student =null;  
+		Student student =null; 
+		Admin admin=null;
 		System.out.println("验证函数"); 
-		student =studentService.VerifyLogin(studentId, password);
+		if (flag==1) {
+			student =studentService.VerifyLogin(studentId, password);
+		} else {
+			admin = adminService.VerifyLogin(studentId, password);
+		}
 		
-		System.out.println("输入的学号、密码："+studentId+":"+password);
-		System.out.println("查询到的："+student.getStudentId()+":"+student.getPassword());
 		
-		if(student!=null){
+		
+		if(student!=null || admin != null){
 			System.out.println("SUCCESS");
 			resultMap.put("result", "SUCCESS");
 			return resultMap;
@@ -140,14 +146,15 @@ public class BookController {
 	}
 	
 	
-	@RequestMapping(value ="/appoint")
-	private String appointBooks(@RequestParam("studentId") long studentId,Model model){
-		
-		List<Appointment> appointList=new ArrayList<Appointment>();
-		appointList=appointmentService.getAppointmentByStudentId(studentId);
-		model.addAttribute("appointList", appointList);
-		 
-		return "appointBookList";
+	@RequestMapping("/appoint")
+	private ModelAndView appointBooks(long studentId){
+		System.out.println("到达appoint的controller");
+		ModelAndView mav = new ModelAndView("appointBookList");
+		List<Appointment> appointList=appointmentService.getAppointmentByStudentId(studentId);
+		mav.addObject("appointList", appointList);
+		return mav;
 	}
+	
+
 
 }

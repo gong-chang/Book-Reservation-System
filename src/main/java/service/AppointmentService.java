@@ -11,6 +11,8 @@ public interface AppointmentService {
 	
 	List<Appointment> getAppointmentByStudentId(long studentId);
 	
+	List<Appointment> getAppointments();
+	
 	void deleteAppointment(long bookId, long studentId);
 	
 	List<Book> getListOfAppointedBooks();

@@ -17,7 +17,23 @@ var bookappointment={
 			}else if(studentId.length!=10 ||isNaN(studentId)||password.length!=6 ||isNaN(password)){
 				return "typerror";
 			}else {
-				if(bookappointment.verifyWithDatabase(studentId, password)){
+				if(bookappointment.verifyWithDatabase(studentId, password,1)){
+					console.log("验证成功！");
+					return "success";
+				}else{
+					console.log("验证失败！");
+					return "mismatch";
+				}
+			} 
+		},
+		validateAdmin:function(adminId,password){
+			console.log("AdminId"+adminId);
+			if(!adminId||!password){
+				return "nothing";
+			}else if(adminId.length!=5 ||isNaN(adminId)||password.length!=5 ||isNaN(password)){
+				return "typerror";
+			}else {
+				if(bookappointment.verifyWithDatabase(adminId, password,0)){
 					console.log("验证成功！");
 					return "success";
 				}else{
@@ -27,11 +43,12 @@ var bookappointment={
 			} 
 		},
 		//将学号和用户名与数据库匹配
-		verifyWithDatabase:function(studentId,password){
+		verifyWithDatabase:function(studentId,password,flag){//flag1--student..flag0--admin
 			var result=false;
 			var params={};
 			params.studentId=studentId;
 			params.password=password;
+			params.flag=flag;
 			console.log("params.password:"+params.password);
 			var verifyUrl=bookappointment.URL.verify();
 			$.ajax({
@@ -133,5 +150,94 @@ var bookappointment={
 			 });
 			
 			
-		}
+		},
+
+		listLogin:function(){
+			console.log("arrive js file");
+			var studentId=$.cookie('studentId');
+			var adminId=$.cookie('adminId');
+			var password=$.cookie('password');
+			if(studentId && password){
+				$('#tryloginBtn').addClass('hide');
+				$('#userInfo').hide().html('<label class="label label-danger">'+'Student:'+studentId+'</label>').show(300);
+				
+			}
+			if(adminId && password){
+				$('#userInfo').hide().html('<label class="label label-danger">'+'Admin:'+adminId+'</label>').show(300);//这里要post
+				document.getElementById("tryloginBtn").innerHTML="Admin Page";
+				$('#tryloginBtn').click(function (){
+					window.location.href="/BookAppointment/admin/booksPage";
+				});
+				return;
+			}
+			$('#tryloginBtn').click(function (){
+				console.log("login has been clicked");
+				var studentId=$.cookie('studentId');
+				var password=$.cookie('password');
+				if (!password || (!studentId && !adminId)){
+				//设置弹出层属性
+					var  IdAndPasswordModal=$('#varifyModal');
+					IdAndPasswordModal.modal({
+						show: true,//显示弹出层
+						backdrop: 'static',//禁止位置关闭
+						keyboard: false//关闭键盘事件
+					});
+				} else {
+					$('#tryloginBtn').addClass('hide');
+					if(admintId && password){
+						$('#tryloginBtn').addClass('hide');
+						$('#userInfo').hide().html('<label class="label label-danger">'+'Admin:'+adminId+'</label>').show(300);//这里要post
+						window.location.href="/BookAppointment/admin/booksPage";
+					} else {
+						$('#userInfo').hide().html('<label class="label label-danger">'+'Student:'+studentId+'</label>').show(300);
+					}
+				}
+				$('#listloginBtn').click(function (){
+						studentId=$('#studentIdKey').val();
+							console.log("studentId:"+studentId);
+						password=$('#passwordKey').val();
+							console.log("password:"+password);
+						//调用validateStudent函数验证用户id和密码。
+						var temp=bookappointment.validateStudent(studentId,password);
+						console.log(temp);
+						if(temp=="nothing"){
+							$('#studentMessage').hide().html('<label class="label label-danger">Student id or password should not be empty!</label>').show(300);
+						}else if(temp=="typerror"){
+							$('#studentMessage').hide().html('<label class="label label-danger">Incorrect format!</label>').show(300);
+						}else if(temp=="mismatch"){
+							console.log("已经调用验证函数！");
+							$('#studentMessage').hide().html('<label class="label label-danger">Id and password does not match!</label>').show(300);
+						}else if(temp=="success"){
+							 //学号与密码匹配正确，将学号密码保存在cookie中。不设置cookie过期时间，这样即为session模式，关闭浏览器就不保存密码了。
+							$.cookie('studentId', studentId, {  path: '/BookAppointment'}); 
+							$.cookie('password', password, {  path: '/BookAppointment'}); 
+							// 跳转到预约逻辑 
+							$.post('/BookAppointment/listBooks');
+						}
+					});
+				$('#adminloginBtn').click(function (){
+						studentId=$('#studentIdKey').val();
+							console.log("studentId:"+studentId);
+						password=$('#passwordKey').val();
+							console.log("password:"+password);
+						//调用validateStudent函数验证用户id和密码。
+						var temp=bookappointment.validateAdmin(studentId,password);
+						console.log(temp);
+						if(temp=="nothing"){
+							$('#studentMessage').hide().html('<label class="label label-danger">Admin id or password should not be empty!</label>').show(300);
+						}else if(temp=="typerror"){
+							$('#studentMessage').hide().html('<label class="label label-danger">Incorrect format!</label>').show(300);
+						}else if(temp=="mismatch"){
+							console.log("已经调用验证函数！");
+							$('#studentMessage').hide().html('<label class="label label-danger">Id and password does not match!</label>').show(300);
+						}else if(temp=="success"){
+							 //学号与密码匹配正确，将学号密码保存在cookie中。不设置cookie过期时间，这样即为session模式，关闭浏览器就不保存密码了。
+							$.cookie('adminId', studentId, {  path: '/BookAppointment'}); 
+							$.cookie('password', password, {  path: '/BookAppointment'}); 
+							// 跳转到预约逻辑 
+							window.location.href="/BookAppointment/admin/booksPage";
+						}
+					});
+		});
+	}
 }

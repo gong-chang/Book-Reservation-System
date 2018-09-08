@@ -29,6 +29,14 @@
 			WHERE 
 		 		a.student_id = #{studentId}
 		</select>
+		
+		<select id="getAppointments"   resultMap="AppointmentBean">
+			SELECT a.book_id, a.student_id, a.appoint_time, b.book_id "bId",b.name ,b.intro ,b.number 
+			FROM
+				appointment a
+			INNER JOIN book b ON a.book_id = b.book_id
+			ORDER BY a.book_id
+		</select>
        
        <delete id="delete">
        		delete from appointment where book_id = #{bookId} and student_id = #{studentId}
