@@ -14,5 +14,7 @@
   		<servlet-name>BookAppointment-dispatcher</servlet-name>
   		<url-pattern>/</url-pattern>
   	</servlet-mapping>
-  
+  	<welcome-file-list>
+  		<welcome-file>/WEB-INF/jsp/listBooks.jsp</welcome-file>
+  	</welcome-file-list>
 </web-app>
