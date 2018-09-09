@@ -1,4 +1,0 @@
-jdbc.driver=com.mysql.jdbc.Driver
-jdbc.url=gx97kbnhgjzh3efb.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/azprjbj5y3r3j29e?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&characterEncoding=utf8&useSSL=false
-jdbc.username=m5kooprrnz79pd9b
-jdbc.password=m938q0859ob7zwg1
