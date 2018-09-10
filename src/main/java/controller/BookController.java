@@ -115,7 +115,7 @@ public class BookController {
 		
 	}
 	//Ö´ÐÐÔ¤Ô¼µÄÂß¼­
-	@RequestMapping(value = "/{bookId}/appoint", method = RequestMethod.POST, produces = {
+	@RequestMapping(value = "/{bookId}/appoint", produces = {
 	"application/json; charset=utf-8" })
 	@ResponseBody
 	private Result<AppointResult> execute(@PathVariable("bookId") long bookId,@RequestParam("studentId") long studentId){

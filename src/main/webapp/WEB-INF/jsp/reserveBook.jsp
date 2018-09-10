@@ -86,10 +86,10 @@
             <div class="modal-footer" >
                		<!--  验证信息 -->
                 <span id="studentMessage" class="glyphicon"> </span>
-                <button type="button" id="adminloginBtn" class="btn btn-info">
+                <!-- <button type="button" id="adminloginBtn" class="btn btn-info">
                 <span class="glyphicon glyphicon-student">Admin</span>
-                </button>
-                <button type="button" id="listloginBtn" class="btn btn-success">
+                </button> -->
+                <button type="button" id="studentBtn" class="btn btn-success">
                 <span class="glyphicon glyphicon-student">Student</span>
                 </button>
             </div>
@@ -119,9 +119,9 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <%--使用CDN 获取公共js http://www.bootcdn.cn/--%>
 <%--jQuery Cookie操作插件--%>
-<script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <%--jQuery countDown倒计时插件--%>
-<script src="http://cdn.bootcss.com/jquery.countdown/2.1.0/jquery.countdown.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.countdown/2.1.0/jquery.countdown.min.js"></script>
 
 <script src="<%=request.getContextPath()%>/script/bookappointment.js" type="text/javascript"></script>
 
