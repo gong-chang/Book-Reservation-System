@@ -38,7 +38,7 @@ The administrator checks the book list which are currently reserved:
 ## About
 
 There is a login and registration functionality included. There are two roles for user, such as student and admin.  
-**Student**: The users with this role can check book detail and reserve their favorite book. But each book can only be reserved once.
+**Student**: The users with this role can check book detail and reserve their favorite book. But each book can only be reserved once.<br/>
 **Administrators**: The Administrators has the highest authority, they can add, delete or modify users, books, and reservations records.  
 
 Demo  👉  [Book Reservation System](https://reserve-book.herokuapp.com/listBooks)  
